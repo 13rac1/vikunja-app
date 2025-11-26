@@ -6,6 +6,25 @@ part of 'data_source_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$secureStorageProviderHash() =>
+    r'4e85fddf510d0e7b609fbdedb5e0994709a053b2';
+
+/// See also [secureStorageProvider].
+@ProviderFor(secureStorageProvider)
+final secureStorageProviderProvider =
+    AutoDisposeProvider<FlutterSecureStorage>.internal(
+      secureStorageProvider,
+      name: r'secureStorageProviderProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$secureStorageProviderHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SecureStorageProviderRef = AutoDisposeProviderRef<FlutterSecureStorage>;
 String _$projectDataSourceHash() => r'b71bde2e37a74f909810d1ba117c8d335d554f5a';
 
 /// See also [projectDataSource].
@@ -169,7 +188,7 @@ final serverDataSourceProvider = AutoDisposeProvider<ServerDataSource>.internal(
 // ignore: unused_element
 typedef ServerDataSourceRef = AutoDisposeProviderRef<ServerDataSource>;
 String _$settingsDataSourceHash() =>
-    r'3a107bf91f9be35417a5dd7d9c38027defa8fc26';
+    r'ca3cb5c6c8499913d9b617587cdd18dc21261b07';
 
 /// See also [settingsDataSource].
 @ProviderFor(settingsDataSource)

@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vikunja_app/core/di/network_provider.dart';
+import 'package:vikunja_app/core/storage/secure_storage.dart';
 import 'package:vikunja_app/data/data_sources/bucket_data_source.dart';
 import 'package:vikunja_app/data/data_sources/label_data_source.dart';
 import 'package:vikunja_app/data/data_sources/project_data_source.dart';
@@ -15,6 +16,11 @@ import 'package:vikunja_app/data/data_sources/user_data_source.dart';
 import 'package:vikunja_app/data/data_sources/version_data_source.dart';
 
 part 'data_source_provider.g.dart';
+
+@riverpod
+FlutterSecureStorage secureStorageProvider(Ref ref) {
+  return secureStorage;
+}
 
 @riverpod
 ProjectDataSource projectDataSource(Ref ref) {
@@ -72,7 +78,8 @@ ServerDataSource serverDataSource(Ref ref) {
 
 @riverpod
 SettingsDatasource settingsDataSource(Ref ref) {
-  return SettingsDatasource(FlutterSecureStorage());
+  final storage = ref.watch(secureStorageProviderProvider);
+  return SettingsDatasource(storage);
 }
 
 @riverpod

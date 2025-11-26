@@ -4,11 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     hide ChangeNotifierProvider;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:vikunja_app/core/di/theme_provider.dart';
+import 'package:vikunja_app/core/storage/secure_storage.dart';
 import 'package:vikunja_app/data/data_sources/settings_data_source.dart';
 import 'package:vikunja_app/init_page.dart';
 import 'package:vikunja_app/presentation/pages/home_page.dart';
@@ -49,7 +49,7 @@ void main() async {
   }
 
   var sentryEnabled = await SettingsDatasource(
-    FlutterSecureStorage(),
+    secureStorage,
   ).getSentryEnabled();
   if (sentryEnabled) {
     await SentryFlutter.init((options) {

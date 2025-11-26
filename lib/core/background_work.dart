@@ -1,10 +1,10 @@
 import 'dart:developer' as developer;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:vikunja_app/core/network/client.dart';
 import 'package:vikunja_app/core/network/response.dart';
+import 'package:vikunja_app/core/storage/secure_storage.dart';
 import 'package:vikunja_app/data/data_sources/settings_data_source.dart';
 import 'package:vikunja_app/data/data_sources/task_data_source.dart';
 import 'package:vikunja_app/data/data_sources/user_data_source.dart';
@@ -39,7 +39,7 @@ void callbackDispatcher() {
 /// We do need this here too for tasks that are created on the server
 /// and were not yet loaded in the app
 Future<bool> updateTasks() async {
-  var datasource = SettingsDatasource(FlutterSecureStorage());
+  var datasource = SettingsDatasource(secureStorage);
   var token = await datasource.getUserToken();
   var base = await datasource.getServer();
 
@@ -66,8 +66,7 @@ Future<bool> updateTasks() async {
 
 /// load new token from server to avoid expiration
 Future<bool> refreshToken() async {
-  final FlutterSecureStorage storage = FlutterSecureStorage();
-  var settingsDatasource = SettingsDatasource(storage);
+  var settingsDatasource = SettingsDatasource(secureStorage);
 
   var token = await settingsDatasource.getUserToken();
   var base = await settingsDatasource.getServer();
